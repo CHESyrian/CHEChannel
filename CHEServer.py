@@ -7,7 +7,7 @@ class Server(threading.Thread):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = host
         self.port = port
-    
+
     def run(self):
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         #server.setblocking(False)
@@ -24,7 +24,7 @@ class Accept(threading.Thread):
         self.conn = None
         self.addr = None
         self.clients = {}
-    
+
     def run(self):
         while True:
             self.conn, self.addr = self.server.accept()
@@ -36,16 +36,16 @@ class Accept(threading.Thread):
 class Recieve_Data(threading.Thread):
     def __init__(self):
         super().__init__()
-    
+
     def run(self):
         pass
-    
+
     def Recieve(self, connect, buff_size):
         buff_size = int(buff_size)
         data      = connect.recv(buff_size).decode('ascii')
         return data
-        
-        
+
+
 ###############################################################################
 
 
@@ -69,7 +69,7 @@ while True:
                 if data:
                     if data == 'Q':
                         Serv.server.close()
-                        
+
                         break
                     print(f'{data}')
             except Exception as err:
